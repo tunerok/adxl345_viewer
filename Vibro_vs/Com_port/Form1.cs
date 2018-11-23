@@ -21,6 +21,11 @@ namespace Com_port
         PointF[] points = new PointF[717];
         PointF[] points2 = new PointF[717];
         PointF[] points3 = new PointF[717];
+
+        PointF[] lpf = new PointF[717];
+        PointF[] lpf2 = new PointF[717];
+        PointF[] lpf3 = new PointF[717];
+
         String S = "";
         double Max_voltage;
         double current_inp = 0;
@@ -37,6 +42,11 @@ namespace Com_port
         Pen pen_lvl = new Pen(Color.Red);
         Pen pen_lvl2 = new Pen(Color.DarkMagenta);
         Pen pen_lvl3 = new Pen(Color.DeepPink);
+
+        Pen pen_lf = new Pen(Color.DeepPink);
+        Pen pen_lf2 = new Pen(Color.DarkGreen); 
+         Pen pen_lf3 = new Pen(Color.DarkRed);
+
         SolidBrush fig = new SolidBrush(Color.White);
         float graph_maxy, graph_miny, graph_maxy2, graph_miny2, graph_maxy3, graph_miny3;
         DisplayHandler handler;
@@ -51,6 +61,7 @@ namespace Com_port
         int counter_b_y = 0;
         int counter_b_z = 0;
         int n_mean = 5;
+        int lpf_win = 5;
 
 
         int x_in, y_in, z_in;
@@ -80,6 +91,14 @@ namespace Com_port
                 points2[i].Y = (float)Max_voltage / 2;
                 points3[i].X = i;
                 points3[i].Y = (float)Max_voltage / 2;
+
+                lpf[i].X = i;
+                lpf[i].Y = (float)Max_voltage / 2;
+                lpf2[i].X = i;
+                lpf2[i].Y = (float)Max_voltage / 2;
+                lpf3[i].X = i;
+                lpf3[i].Y = (float)Max_voltage / 2;
+
             }
             g.FillRectangle(fig, 0, 0, pictureBox1.Width, pictureBox1.Height);
             
@@ -168,7 +187,7 @@ namespace Com_port
                 }
             }
             catch(Exception ex) {
-                MessageBox.Show(ex.ToString());
+             //   MessageBox.Show(ex.ToString());
             }
 
             
@@ -209,6 +228,14 @@ namespace Com_port
         private void button6_Click(object sender, EventArgs e)
         {
             n_mean = Int32.Parse(textBox6.Text);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            lpf_win = Int32.Parse(textBox7.Text);
+            if (lpf_win > 716)
+                lpf_win = 716;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -284,11 +311,64 @@ namespace Com_port
                     graph_maxy3 = points3[i].Y;
                 if (points3[i].Y < graph_miny3)
                     graph_miny3 = points3[i].Y;
+
+
+                lpf[i].Y = lpf[i + 1].Y;
+                lpf2[i].Y = lpf2[i + 1].Y;
+                lpf3[i].Y = lpf3[i + 1].Y;
+
+
             }
 
             points[716].Y = (float)t_inp;
             points2[716].Y = (float)t_inp2;
             points3[716].Y = (float)t_inp3;
+
+            
+            
+
+            if (checkBox15.Checked)
+            {
+                float temp = 0;
+                lpf[716].Y = (float)t_inp;
+                for (i = 716 - lpf_win; i <  717; i++)
+                {
+                    temp = temp + lpf[i].Y;
+                }
+                lpf[715].Y = temp / (lpf_win+1);
+                g.DrawLines(pen_lf, lpf);
+
+            }
+
+            if (checkBox16.Checked)
+            {
+                float temp = 0;
+                lpf2[716].Y = (float)t_inp2;
+                for (i = 716 - lpf_win; i < 717; i++)
+                {
+                    temp = temp + lpf2[i].Y;
+                }
+                lpf2[715].Y = temp / (lpf_win+1);
+                g.DrawLines(pen_lf2, lpf2);
+
+            }
+
+            if (checkBox17.Checked)
+            {
+                float temp = 0;
+                lpf3[716].Y = (float)t_inp3;
+                for (i = 716 - lpf_win; i < 717; i++)
+                {
+                    temp = temp + lpf3[i].Y;
+                }
+                lpf3[715].Y = temp / (lpf_win+1);
+                g.DrawLines(pen_lf3, lpf3);
+
+            }
+
+
+
+
 
             if (checkBox12.Checked)
                 g.DrawLines(pen, points);
