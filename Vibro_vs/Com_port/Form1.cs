@@ -50,7 +50,7 @@ namespace Com_port
         SolidBrush fig = new SolidBrush(Color.White);
         float graph_maxy, graph_miny, graph_maxy2, graph_miny2, graph_maxy3, graph_miny3;
         DisplayHandler handler;
-        int writer_counter = 5000;
+        int writer_counter = 10000;
         int cycle_counter = 0;
         double res = 0.0;
         double r = 0.051;
@@ -62,7 +62,7 @@ namespace Com_port
         int counter_b_z = 0;
         int n_mean = 5;
         int lpf_win = 5;
-
+        bool log_append;
 
         int x_in, y_in, z_in;
         string[] num = new string[3];
@@ -73,7 +73,7 @@ namespace Com_port
 
         public Form1()
         {
-
+            log_append = false;
             InitializeComponent();
             textBox2.Text = PortEr._ID_mk;
             label2.Text = PortEr._port_finded;//выводим номер порта
@@ -103,7 +103,7 @@ namespace Com_port
             g.FillRectangle(fig, 0, 0, pictureBox1.Width, pictureBox1.Height);
             
             handler = new DisplayHandler(updateImageBox);
-            My_txt_Writer.Ini_file_writer();
+           // My_txt_Writer.Ini_file_writer();
             Main();
         }
 
@@ -123,6 +123,10 @@ namespace Com_port
             
             
         }
+
+
+
+
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)//Само событие просто считывает значение переменной, которая была забита из класса управления портом
         {
@@ -160,12 +164,34 @@ namespace Com_port
                     handler.Invoke();
 					if (PortEr.isChanged){
 						PortEr.isChanged = false;
-                        cycle_counter++;
-                        if (cycle_counter > writer_counter)
+
+                        log_append = checkBox4.Checked;
+
+
+
+
+                        if (log_append)
                         {
-                            My_txt_Writer.Close_file();
-                            My_txt_Writer.Ini_file_writer();
-                            cycle_counter = 0;
+                            if (cycle_counter == 0)
+                                My_txt_Writer.Ini_file_writer();
+                            cycle_counter++;
+                            if (cycle_counter > writer_counter)
+                            {
+                                aTimer.Stop();
+                                My_txt_Writer.Close_file();
+                                My_txt_Writer.Ini_file_writer();
+                                cycle_counter = 1;
+                                aTimer.Start();
+                            }
+                        }
+                        else
+                        {
+                            if (cycle_counter > 0)
+                            {
+                                My_txt_Writer.Close_file();
+                                cycle_counter = 0;
+                            }
+
                         }
 
                         S = PortEr.strFromPort;
@@ -173,7 +199,8 @@ namespace Com_port
                         x_in = Int32.Parse(num[0]);
                         y_in = Int32.Parse(num[1]);
                         z_in = Int32.Parse(num[2]);
-                        My_txt_Writer.Append_to_file(x_in.ToString(), y_in.ToString(), z_in.ToString());
+                        if (log_append)
+                            My_txt_Writer.Append_to_file(x_in.ToString(), y_in.ToString(), z_in.ToString());
 						//button4.BeginInvoke((Action)delegate () { button4.Enabled = false; });
 						
 						ThreadHelperClass.SetText(this, label6, x_in.ToString()); //PortEr._port_finded);
@@ -237,6 +264,19 @@ namespace Com_port
                 lpf_win = 716;
 
         }
+
+        /* void log_inp(object sender, EventArgs e)
+        {
+            if (log_append)
+            {
+               My_txt_Writer.Ini_file_writer();
+            }
+            else
+            {
+                My_txt_Writer.Close_file();
+            }
+        }
+        */
 
         private void button1_Click(object sender, EventArgs e)
         {

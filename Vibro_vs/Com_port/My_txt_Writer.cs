@@ -22,11 +22,12 @@ namespace Com_port
         {
             try
             {
+                
                 sw.Write(x + " " + y + " " + z + "\n");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+               // MessageBox.Show(ex.ToString());
             }
         }
 
@@ -38,7 +39,7 @@ namespace Com_port
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
         }
 
@@ -55,7 +56,7 @@ namespace Com_port
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
             }
 
         }
