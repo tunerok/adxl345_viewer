@@ -1,0 +1,11 @@
+C:\Users\Игорь\Desktop\виброметр\adxl345_viewer\Vibro_vs\Com_port\bin\Debug\Com_port.exe.config
+C:\Users\Игорь\Desktop\виброметр\adxl345_viewer\Vibro_vs\Com_port\bin\Debug\Com_port.exe
+C:\Users\Игорь\Desktop\виброметр\adxl345_viewer\Vibro_vs\Com_port\bin\Debug\Com_port.pdb
+C:\Users\Игорь\Desktop\виброметр\adxl345_viewer\Vibro_vs\Com_port\obj\Debug\accel.csprojAssemblyReference.cache
+C:\Users\Игорь\Desktop\виброметр\adxl345_viewer\Vibro_vs\Com_port\obj\Debug\Com_port.Form1.resources
+C:\Users\Игорь\Desktop\виброметр\adxl345_viewer\Vibro_vs\Com_port\obj\Debug\Com_port.Inp_f.resources
+C:\Users\Игорь\Desktop\виброметр\adxl345_viewer\Vibro_vs\Com_port\obj\Debug\Com_port.Properties.Resources.resources
+C:\Users\Игорь\Desktop\виброметр\adxl345_viewer\Vibro_vs\Com_port\obj\Debug\accel.csproj.GenerateResource.cache
+C:\Users\Игорь\Desktop\виброметр\adxl345_viewer\Vibro_vs\Com_port\obj\Debug\accel.csproj.CoreCompileInputs.cache
+C:\Users\Игорь\Desktop\виброметр\adxl345_viewer\Vibro_vs\Com_port\obj\Debug\Com_port.exe
+C:\Users\Игорь\Desktop\виброметр\adxl345_viewer\Vibro_vs\Com_port\obj\Debug\Com_port.pdb

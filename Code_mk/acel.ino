@@ -26,6 +26,9 @@
 ADXL345 adxl = ADXL345(10);           // USE FOR SPI COMMUNICATION, ADXL345(CS_PIN);
 //ADXL345 adxl = ADXL345();             // USE FOR I2C COMMUNICATION
 
+//SPI FOR arduino uno
+//CS - 10, SDA - 11, SDO - 12, SCL - 13 
+
 /****************** INTERRUPT ******************/
 /*      Uncomment If Attaching Interrupt       */
 //int interruptPin = 2;                 // Setup pin 2 to be the interrupt pin (for most Arduino Boards)
